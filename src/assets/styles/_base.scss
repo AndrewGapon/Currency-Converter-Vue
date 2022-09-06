@@ -1,0 +1,28 @@
+#app {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.c-layout {
+  flex-grow: 1;
+}
+
+@layer components {
+  .form-input,
+  .form-select {
+    @apply block
+    rounded-md
+    border-gray-300
+    shadow-sm
+    focus:border-indigo-300
+    focus:ring
+    focus:ring-indigo-200
+    focus:ring-opacity-50;
+  }
+
+  .form-select {
+    @apply cursor-pointer;
+  }
+}
