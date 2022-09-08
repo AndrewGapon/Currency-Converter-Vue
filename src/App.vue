@@ -15,7 +15,6 @@ onBeforeMount(() => {
     getSupportedCurrencies()
   }
 })
-
 </script>
 
 <template>
@@ -33,7 +32,7 @@ onBeforeMount(() => {
   @apply flex overflow-hidden;
 }
 .c-main {
-  @apply flex flex-grow p-3 overflow-y-auto relative;
+  @apply flex flex-grow p-6 overflow-y-auto relative;
 
   & > .c-loader {
     align-self: center;

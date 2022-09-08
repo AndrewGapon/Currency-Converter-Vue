@@ -2,7 +2,7 @@ import { computed, ref } from 'vue'
 
 export const useRequestState = <C extends Promise<any>, A extends any[], R extends Awaited<Required<C>>>(
   callback: (...args: A) => C,
-  mapCallback?: (response: Awaited<Required<C>>) => R
+  mapCallback?: (response: Awaited<Required<C>>) => R,
 ) => {
   const loading = ref(false)
   const error = ref<any>(null)
@@ -24,6 +24,6 @@ export const useRequestState = <C extends Promise<any>, A extends any[], R exten
     loading: computed(() => loading.value),
     error: computed(() => error.value),
     data: computed(() => data.value),
-    request
+    request,
   }
 }

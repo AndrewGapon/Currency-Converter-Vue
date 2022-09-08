@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from 'vue'
 import { ArrowPathRoundedSquareIcon, ChartBarIcon } from '@heroicons/vue/24/outline'
+import { RouteNames } from '@/router'
 
 const isHidden = ref(false)
 const toggleSidebar = () => {
@@ -13,13 +14,13 @@ const toggleSidebar = () => {
     <nav class="c-sidebar__nav">
       <ul>
         <li class="c-sidebar__nav-item">
-          <router-link class="c-sidebar__nav-link" :to="{ name: 'home' }">
+          <router-link class="c-sidebar__nav-link" :to="{ name: RouteNames.rates }">
             <chart-bar-icon />
             <span>Rates</span>
           </router-link>
         </li>
         <li class="c-sidebar__nav-item">
-          <router-link class="c-sidebar__nav-link" :to="{ name: 'converter' }">
+          <router-link class="c-sidebar__nav-link" :to="{ name: RouteNames.converter }">
             <arrow-path-rounded-square-icon />
             <span>Converter</span>
           </router-link>
@@ -31,7 +32,7 @@ const toggleSidebar = () => {
 
 <style scoped lang="scss">
 .c-sidebar {
-  @apply py-3
+  @apply py-4
   border-r-gray-300
   border-r-[1px]
   font-medium;
@@ -48,7 +49,6 @@ const toggleSidebar = () => {
     gap-2
     transition;
     color: var(--link-color);
-
 
     &:hover {
       color: var(--link-hover-color);

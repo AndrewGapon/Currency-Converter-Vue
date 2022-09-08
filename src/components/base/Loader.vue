@@ -7,21 +7,18 @@ const props = defineProps<{
   weight?: string | number
 }>()
 
-const computedSize = computed(
-  () => !props.size
-    ? '80px'
-    : getCSSSize(props.size)
-)
+const computedSize = computed(() => (!props.size ? '80px' : getCSSSize(props.size)))
 
-const computedWeight = computed(
-  () => !props.weight
-    ? '8px'
-    : getCSSSize(props.weight)
-)
+const computedWeight = computed(() => (!props.weight ? '8px' : getCSSSize(props.weight)))
 </script>
 
 <template>
-  <div class="c-loader"><div></div><div></div><div></div><div></div></div>
+  <div class="c-loader">
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
 </template>
 
 <style scoped lang="scss">
@@ -65,5 +62,4 @@ const computedWeight = computed(
     transform: rotate(360deg);
   }
 }
-
 </style>

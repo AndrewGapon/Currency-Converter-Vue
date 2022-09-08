@@ -16,7 +16,7 @@ export default {
     app.config.globalProperties.$endpoints = endpoints
 
     app.provide<AppApiPlugin>(apiPluginKey, { api, endpoints })
-  }
+  },
 }
 
 export const useApi = (): AppApiPlugin => {
@@ -24,6 +24,6 @@ export const useApi = (): AppApiPlugin => {
 
   return {
     api: apiConfig!.api,
-    endpoints: apiConfig!.endpoints
+    endpoints: apiConfig!.endpoints,
   }
 }

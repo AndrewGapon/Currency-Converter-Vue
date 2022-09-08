@@ -11,7 +11,7 @@ export enum ApiErrorTypes {
   'malformed-request' = 'malformed-request',
   'invalid-key' = 'invalid-key',
   'inactive-account' = 'inactive-account',
-  'quota-reached' = 'quota-reached'
+  'quota-reached' = 'quota-reached',
 }
 
 export interface ApiError {
@@ -36,7 +36,7 @@ export interface CurrencyUpdatesTime {
 }
 
 export type ConversionRates = Record<string, number>
-export interface GetRatesResponseData extends CurrencyUpdatesTime{
+export interface GetRatesResponseData extends CurrencyUpdatesTime {
   base_code: string
   conversion_rates: ConversionRates
 }

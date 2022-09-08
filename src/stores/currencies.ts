@@ -1,4 +1,4 @@
-import { defineStore,  } from 'pinia'
+import { defineStore } from 'pinia'
 import { computed, ref } from 'vue'
 import { useApi } from '@/plugins/api'
 import type { ApiMethods } from '@/api/endpoints'
@@ -10,40 +10,53 @@ const defaultBaseCurrency = 'UAH'
 
 export const useCurrenciesStore = defineStore('currencies', () => {
   const storage = useLocalStorage()
-  const baseCurrency = computed(() => storage.value.baseCurrency || defaultBaseCurrency)
+  const baseCurrency = computed<string>(() => storage.value.baseCurrency || defaultBaseCurrency)
+  const favoriteCurrencies = computed(() => storage.value.favoriteCurrencies || {})
 
   const { api, endpoints } = useApi()
 
   const {
     loading,
     error,
-    data: codesResponse,
-    request: getSupportedCurrencies
+    data: supportedCurrencies,
+    request: getSupportedCurrencies,
   } = useRequestState(
-    () => api.request<ApiMethods.GET_CODES>(
-      endpoints.currencies.getCodes
-    )
-  )
-
-  const supportedCurrencies = computed(
-    () => codesResponse.value
-      ? mapSupportedCurrenciesResponse(codesResponse.value)
-      : null
+    () => api.request<ApiMethods.GET_CODES>(endpoints.currencies.getCodes),
+    mapSupportedCurrenciesResponse
   )
 
   function setBaseCurrency(currency: string) {
-    if (!supportedCurrencies.value) return
-    if (!Object.keys(supportedCurrencies.value).includes(currency)) return
+    if (
+      !supportedCurrencies.value ||
+      !supportedCurrencies.value[currency]
+    ) return
     storage.value.baseCurrency = currency
+  }
+
+  function toggleFavorite(currency: string) {
+    if (!storage.value.favoriteCurrencies) {
+      storage.value.favoriteCurrencies = {}
+    }
+    if (
+      !supportedCurrencies.value ||
+      !supportedCurrencies.value[currency]
+    ) return
+
+    if (favoriteCurrencies.value[currency]) {
+      delete storage.value.favoriteCurrencies[currency]
+      return
+    }
+    storage.value.favoriteCurrencies[currency] = true
   }
 
   return {
     loading,
     error,
     baseCurrency,
-    codesResponse,
+    setBaseCurrency,
     supportedCurrencies,
+    favoriteCurrencies,
+    toggleFavorite,
     getSupportedCurrencies,
-    setBaseCurrency
   }
 })

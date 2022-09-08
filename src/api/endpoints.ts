@@ -1,14 +1,10 @@
-import type {
-  CurrencyCodeDescription,
-  GetConversionResponseData,
-  GetRatesResponseData
-} from '@/api/types'
+import type { CurrencyCodeDescription, GetConversionResponseData, GetRatesResponseData } from '@/api/types'
 import type { Method } from 'axios'
 
 export enum ApiMethods {
   GET_CODES = 'GET_CODES',
   GET_RATES = 'GET_RATES',
-  GET_CONVERSION = 'GET_CONVERSION'
+  GET_CONVERSION = 'GET_CONVERSION',
 }
 
 export interface ApiResponsesData {
@@ -26,15 +22,15 @@ export const endpoints = {
   currencies: {
     getCodes: {
       url: '/codes',
-      method: 'GET' as Method
+      method: 'GET' as Method,
     },
     getCurrencyRates: {
       url: '/latest/:currency',
-      method: 'GET' as Method
+      method: 'GET' as Method,
     },
     getCurrenciesConversion: {
       url: '/pair/:base/:target',
-      method: 'GET' as Method
-    }
-  }
+      method: 'GET' as Method,
+    },
+  },
 }
