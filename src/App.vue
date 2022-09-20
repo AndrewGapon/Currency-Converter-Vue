@@ -18,21 +18,35 @@ onBeforeMount(() => {
 </script>
 
 <template>
-  <CHeader />
-  <div class="c-layout">
-    <CSidebar />
-    <main class="c-main">
-      <router-view />
-    </main>
-  </div>
+  <router-view v-slot="{ Component }">
+    <CHeader />
+    <div class="c-layout">
+      <CSidebar />
+      <main class="c-main">
+        <Transition>
+          <component :is="Component" />
+        </Transition>
+      </main>
+    </div>
+  </router-view>
 </template>
 
 <style scoped lang="scss">
+@import 'assets/styles/mixins';
+
 .c-layout {
   @apply flex overflow-hidden;
 }
+
 .c-main {
   @apply flex flex-grow p-6 overflow-y-auto relative;
+  @include custom-scroll(
+    10px,
+    theme('colors.slate.600'),
+    theme('colors.slate.700'),
+    theme('colors.slate.800'),
+    theme('colors.slate.200')
+  );
 
   & > .c-loader {
     align-self: center;

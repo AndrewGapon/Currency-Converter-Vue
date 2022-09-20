@@ -2,13 +2,16 @@
 import { useCurrenciesStore } from '@/stores/currencies'
 import { storeToRefs } from 'pinia'
 import RatesTableRow from '@/components/Rates/RatesTableRow.vue'
+import type { CurrencyCodesDict } from '@/api/types'
 
 defineProps<{
   rates: Record<string, number>
+  supportedCurrencies: CurrencyCodesDict,
+  favoriteCurrencies: Record<string, boolean>
 }>()
 
 const currenciesStore = useCurrenciesStore()
-const { baseCurrency, supportedCurrencies, favoriteCurrencies } = storeToRefs(currenciesStore)
+const { baseCurrency } = storeToRefs(currenciesStore)
 const { toggleFavorite } = currenciesStore
 
 </script>

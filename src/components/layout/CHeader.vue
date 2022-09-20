@@ -1,11 +1,15 @@
 <script setup lang="ts">
 import { useCurrenciesStore } from '@/stores/currencies'
 import { storeToRefs } from 'pinia'
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
+import { BookmarkSquareIcon } from '@heroicons/vue/24/outline'
+import { XCircleIcon } from '@heroicons/vue/20/solid'
+import Modal from '@/components/base/Modal.vue'
+import { RouteNames } from '@/router'
 
 const currenciesStore = useCurrenciesStore()
-const { supportedCurrencies, baseCurrency } = storeToRefs(currenciesStore)
-const { setBaseCurrency } = currenciesStore
+const { supportedCurrencies, baseCurrency, favoriteCurrencies } = storeToRefs(currenciesStore)
+const { setBaseCurrency, toggleFavorite } = currenciesStore
 
 const baseCurr = computed({
   get() {
@@ -15,6 +19,8 @@ const baseCurr = computed({
     setBaseCurrency(newValue)
   },
 })
+
+const showFavoritesPopup = ref(false)
 </script>
 
 <template>
@@ -27,9 +33,33 @@ const baseCurr = computed({
         <select class="form-select base-curr-select" v-if="supportedCurrencies" v-model="baseCurr">
           <option v-for="{ code, name } in supportedCurrencies" :value="code">{{ code }} ({{ name }})</option>
         </select>
+        <button class="w-10" type="button" @click="showFavoritesPopup = true">
+          <BookmarkSquareIcon />
+        </button>
       </div>
     </div>
   </header>
+  <Modal :show="showFavoritesPopup" @close="showFavoritesPopup = false">
+    <template #header>
+      <h3 class="text-3xl font-medium">Favorites</h3>
+    </template>
+    <div v-if="!Object.keys(favoriteCurrencies).length" class="favorites-list favorites-list--empty">
+      <p>You haven't add any currencies to favorites</p>
+    </div>
+    <ul class="favorites-list flex flex-col gap-2" v-else>
+      <li v-for="(_, curr) in favoriteCurrencies" :key="curr">
+        <router-link
+          class="flex justify-between p-2 border-b-[1px] border-b-gray-500"
+          :to="{ name: RouteNames.converter, query: { from: baseCurrency, to: curr } }"
+        >
+          <span>{{ curr }}</span>
+          <button type="button" class="w-6 hover:text-sky-700 transition" @click.stop="toggleFavorite(curr)">
+            <XCircleIcon />
+          </button>
+        </router-link>
+      </li>
+    </ul>
+  </Modal>
 </template>
 
 <style scoped lang="scss">
@@ -52,6 +82,8 @@ const baseCurr = computed({
   }
 
   &__right {
+    @apply flex items-center gap-2;
+
     .base-curr-select {
       @apply w-48 overflow-hidden overflow-ellipsis whitespace-nowrap;
     }

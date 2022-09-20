@@ -1,7 +1,7 @@
 import { ref, watch } from 'vue'
 import type { Ref } from 'vue'
 
-const _localStorage = ref(JSON.parse(localStorage.getItem('currencyApp') || '{}'))
+export const _localStorage = ref(JSON.parse(localStorage.getItem('currencyApp') || '{}'))
 
 watch(_localStorage.value, (value) => {
   localStorage.setItem('currencyApp', JSON.stringify(value))

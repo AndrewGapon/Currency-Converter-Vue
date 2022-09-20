@@ -1,0 +1,50 @@
+@mixin custom-scroll(
+  $width,
+  $thumb-color,
+  $thumb-hover-color,
+  $thumb-active-color,
+  $track-color: transparent,
+  $track-margin: 0
+) {
+  scrollbar-color: $thumb-color $track-color;
+  scrollbar-width: $width;
+  overflow-scrolling: touch;
+  overflow: auto;
+  overscroll-behavior: none none;
+  -webkit-overflow-scrolling: touch;
+
+  &::-webkit-scrollbar {
+    width: $width;
+    height: $width;
+    border-radius: #{$width * 2};
+    background-color: transparent;
+    cursor: pointer;
+    transition: theme('transitionDuration.150');
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: $track-color;
+    border-radius: #{$width * 2};
+    margin: $track-margin;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: $thumb-color;
+    border-radius: #{$width * 2};
+    box-shadow: none;
+    cursor: pointer;
+    transition: theme('transitionDuration.150');
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background-color: $thumb-hover-color;
+  }
+
+  &::-webkit-scrollbar-thumb:active {
+    background-color: $thumb-active-color;
+  }
+
+  &::-webkit-scrollbar-button {
+    display: none;
+  }
+}
