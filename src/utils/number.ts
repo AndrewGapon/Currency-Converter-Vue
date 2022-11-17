@@ -1,4 +1,4 @@
-const getDecimalPlaces = (amount: number): number => {
+export const getDecimalPlaces = (amount: number): number => {
   let decimalPlaces = 2
   const absoluteValue = Math.abs(amount)
   if (absoluteValue < 1) {
