@@ -1,10 +1,10 @@
 import { defineStore } from 'pinia'
 import { computed, ref } from 'vue'
-import { useApi } from '@/plugins/api'
-import type { ApiMethods } from '@/api/endpoints'
+import { useApi } from '@/plugins/apiPlugin'
+import type { ApiMethod } from '@/api/endpoints'
 import { mapSupportedCurrenciesResponse } from '@/stores/mapping'
 import { useRequestState } from '@/composables/useRequestState'
-import { useLocalStorage } from '@/composables/useLocalStorage'
+import { useLocalStorage } from '@/plugins/localStoragePlugin'
 
 const defaultBaseCurrency = 'UAH'
 
@@ -21,7 +21,7 @@ export const useCurrenciesStore = defineStore('currencies', () => {
     data: supportedCurrencies,
     request: getSupportedCurrencies,
   } = useRequestState(
-    () => api.request<ApiMethods.GET_CODES>(endpoints.currencies.getCodes),
+    () => api.request<ApiMethod.GET_CODES>(endpoints.currencies.getCodes),
     mapSupportedCurrenciesResponse
   )
 

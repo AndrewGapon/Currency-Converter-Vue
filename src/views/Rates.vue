@@ -2,8 +2,8 @@
 import { useCurrenciesStore } from '@/stores/currencies'
 import { storeToRefs } from 'pinia'
 import { useRequestState } from '@/composables/useRequestState'
-import { useApi } from '@/plugins/api'
-import type { ApiMethods } from '@/api/endpoints'
+import { useApi } from '@/plugins/apiPlugin'
+import type { ApiMethod } from '@/api/endpoints'
 import { computed, watch } from 'vue'
 import Loader from '@/components/base/Loader.vue'
 import ErrorWidget from '@/components/base/ErrorWidget.vue'
@@ -25,7 +25,7 @@ const {
   data: rates,
   request: getRates,
 } = useRequestState(
-  (currency) => api.request<ApiMethods.GET_RATES>(endpoints.currencies.getCurrencyRates, { currency }),
+  (currency) => api.request<ApiMethod.GET_RATES>(endpoints.currencies.getCurrencyRates, { currency }),
   (response) => response.data!.conversion_rates,
 )
 

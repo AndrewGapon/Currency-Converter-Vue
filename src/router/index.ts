@@ -1,6 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Rates from '../views/Rates.vue'
-import { _localStorage } from '@/composables/useLocalStorage'
 
 export enum RouteNames {
   'rates' = 'rates',
@@ -19,18 +18,6 @@ const router = createRouter({
       path: '/convert',
       name: RouteNames.converter,
       component: () => import('../views/Converter.vue'),
-      beforeEnter: (to, from, next) => {
-        if (!to.query.from) {
-          return next({
-            ...to,
-            query: {
-              ...to.query,
-              from: _localStorage.value.baseCurrency
-            }
-          })
-        }
-        return next()
-      },
     },
   ],
 })

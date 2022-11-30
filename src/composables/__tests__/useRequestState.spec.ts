@@ -1,9 +1,11 @@
 import { describe, it, test, expect } from 'vitest'
 import { useRequestState } from '../useRequestState'
 
+const mockReturnedValue = 'Mock returned value'
+
 const mockSuccessRequest = (value: string) => {
   return new Promise<string>((resolve) => {
-    setTimeout(() => resolve(value), 500)
+    setTimeout(() => resolve(mockReturnedValue), 500)
   })
 }
 
@@ -27,7 +29,7 @@ describe('useRequestState', async () => {
     request(...args).then(() => {
       it('should invoke the callback and set the result to the reactive data variable', function () {
         expect(mockSuccessRequest).toBeCalledWith(args)
-        expect(data.value).toBeTruthy()
+        expect(data.value).toBe(mockReturnedValue)
         expect(error.value).toBeNull()
         expect(loading.value).toBe(false)
       })

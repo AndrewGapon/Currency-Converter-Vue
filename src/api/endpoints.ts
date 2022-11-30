@@ -1,16 +1,16 @@
 import type { CurrencyCodeDescription, GetConversionResponseData, GetRatesResponseData } from '@/api/types'
 import type { Method } from 'axios'
 
-export enum ApiMethods {
+export enum ApiMethod {
   GET_CODES = 'GET_CODES',
   GET_RATES = 'GET_RATES',
   GET_CONVERSION = 'GET_CONVERSION',
 }
 
 export interface ApiResponsesData {
-  [ApiMethods.GET_CODES]: { supported_codes: CurrencyCodeDescription[] }
-  [ApiMethods.GET_RATES]: GetRatesResponseData
-  [ApiMethods.GET_CONVERSION]: GetConversionResponseData
+  [ApiMethod.GET_CODES]: { supported_codes: CurrencyCodeDescription[] }
+  [ApiMethod.GET_RATES]: GetRatesResponseData
+  [ApiMethod.GET_CONVERSION]: GetConversionResponseData
 }
 
 export interface IApiEndpointConfig {

@@ -8,6 +8,12 @@ interface AppApiPlugin {
   endpoints: typeof endpoints
 }
 
+export class NoApiPluginError extends Error {
+  constructor() {
+    super('apiPlugin is not used in the app')
+  }
+}
+
 const apiPluginKey = 'apiPlugin'
 
 export default {
@@ -22,8 +28,12 @@ export default {
 export const useApi = (): AppApiPlugin => {
   const apiConfig = inject<AppApiPlugin>(apiPluginKey)
 
+  if (!apiConfig) {
+    throw new NoApiPluginError()
+  }
+
   return {
-    api: apiConfig!.api,
-    endpoints: apiConfig!.endpoints,
+    api: apiConfig.api,
+    endpoints: apiConfig.endpoints,
   }
 }
