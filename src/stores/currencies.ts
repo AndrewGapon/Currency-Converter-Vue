@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
-import { computed, ref } from 'vue'
+import { computed } from 'vue'
 import { useApi } from '@/plugins/apiPlugin'
-import type { ApiMethod } from '@/api/endpoints'
+import { ApiMethod } from '@/api/endpoints'
 import { mapSupportedCurrenciesResponse } from '@/stores/mapping'
 import { useRequestState } from '@/composables/useRequestState'
 import { useLocalStorage } from '@/plugins/localStoragePlugin'
@@ -13,7 +13,7 @@ export const useCurrenciesStore = defineStore('currencies', () => {
   const baseCurrency = computed<string>(() => storage.value.baseCurrency || defaultBaseCurrency)
   const favoriteCurrencies = computed(() => storage.value.favoriteCurrencies || {})
 
-  const { api, endpoints } = useApi()
+  const { api } = useApi()
 
   const {
     loading,
@@ -21,15 +21,12 @@ export const useCurrenciesStore = defineStore('currencies', () => {
     data: supportedCurrencies,
     request: getSupportedCurrencies,
   } = useRequestState(
-    () => api.request<ApiMethod.GET_CODES>(endpoints.currencies.getCodes),
-    mapSupportedCurrenciesResponse
+    () => api.request(ApiMethod.GET_CODES),
+    mapSupportedCurrenciesResponse,
   )
 
   function setBaseCurrency(currency: string) {
-    if (
-      !supportedCurrencies.value ||
-      !supportedCurrencies.value[currency]
-    ) return
+    if (!supportedCurrencies.value || !supportedCurrencies.value[currency]) return
     storage.value.baseCurrency = currency
   }
 
@@ -37,10 +34,7 @@ export const useCurrenciesStore = defineStore('currencies', () => {
     if (!storage.value.favoriteCurrencies) {
       storage.value.favoriteCurrencies = {}
     }
-    if (
-      !supportedCurrencies.value ||
-      !supportedCurrencies.value[currency]
-    ) return
+    if (!supportedCurrencies.value || !supportedCurrencies.value[currency]) return
 
     if (favoriteCurrencies.value[currency]) {
       delete storage.value.favoriteCurrencies[currency]

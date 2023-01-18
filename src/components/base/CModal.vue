@@ -29,7 +29,7 @@ const triggerClose = () => {
 
 <template>
   <Teleport to="#modals-container">
-    <Transition>
+    <Transition name="fade">
       <div v-if="show" class="modal-overlay">
         <div v-bind="$attrs" class="modal" v-outside-click="triggerClose">
           <button class="modal__close-button" @click="triggerClose">

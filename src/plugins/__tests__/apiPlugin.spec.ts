@@ -20,7 +20,7 @@ describe('api', () => {
       })
 
       return {}
-    }
+    },
   })
 
   const wrapper = mount(TestComponent, {

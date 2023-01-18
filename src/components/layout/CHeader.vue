@@ -4,7 +4,7 @@ import { storeToRefs } from 'pinia'
 import { computed, ref } from 'vue'
 import { BookmarkSquareIcon } from '@heroicons/vue/24/outline'
 import { XCircleIcon } from '@heroicons/vue/20/solid'
-import Modal from '@/components/base/Modal.vue'
+import CModal from '@/components/base/CModal.vue'
 import { RouteNames } from '@/router'
 import { useRouter } from 'vue-router'
 
@@ -22,9 +22,7 @@ const baseCurr = computed({
 })
 
 const showFavoritesPopup = ref(false)
-const {
-  beforeEach
-} = useRouter()
+const { beforeEach } = useRouter()
 beforeEach((to, from, next) => {
   showFavoritesPopup.value = false
   return next()
@@ -53,7 +51,7 @@ beforeEach((to, from, next) => {
       </div>
     </div>
   </header>
-  <Modal :show="showFavoritesPopup" @close="showFavoritesPopup = false">
+  <c-modal :show="showFavoritesPopup" @close="showFavoritesPopup = false">
     <template #header>
       <h3 class="text-3xl font-medium">Favorites</h3>
     </template>
@@ -81,7 +79,7 @@ beforeEach((to, from, next) => {
         </button>
       </li>
     </ul>
-  </Modal>
+  </c-modal>
 </template>
 
 <style scoped lang="scss">

@@ -1,8 +1,8 @@
 import type { AxiosInstance, AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios'
 import axios from 'axios'
-import type { ApiResponsesData, IApiEndpointConfig } from '@/api/endpoints'
+import type { ApiResponsesData } from '@/api/endpoints'
 import type { ApiError, ApiResponse } from '@/api/types'
-import { ApiErrorTypes } from '@/api/types'
+import { endpoints } from '@/api/endpoints'
 
 export interface ApiServiceError {
   status?: number
@@ -20,7 +20,7 @@ export interface ApiServiceResponse<R> extends ApiServiceSuccessResponse<R> {
 
 interface IApi {
   request<K extends keyof ApiResponsesData>(
-    endpoint: IApiEndpointConfig,
+    endpoint: K,
     params?: Record<string, any>,
   ): Promise<ApiServiceResponse<ApiResponsesData[K]>>
 }
@@ -48,21 +48,22 @@ export class Api implements IApi {
   }
 
   request<K extends keyof ApiResponsesData>(
-    endpoint: IApiEndpointConfig,
+    endpoint: K,
     data?: Record<string, any>,
   ): Promise<ApiServiceResponse<ApiResponsesData[K]>> {
-    const { url, params } = Api.replaceUrlParams(endpoint.url, data ?? {})
+    const endpointConfig = endpoints[endpoint]
+    const { url, params } = Api.replaceUrlParams(endpointConfig.url, data ?? {})
     return this.instance
       .request<ApiResponse<ApiResponsesData[K]>>({
         url,
-        method: endpoint.method,
+        method: endpointConfig.httpMethod,
         params,
       })
       .then(Api.handleResponse)
       .catch(Api.handleError)
   }
 
-  static handleResponse<R>(response: AxiosResponse<ApiResponse<R>>) {
+  static handleResponse<R extends Record<string, any>>(response: AxiosResponse<ApiResponse<R>>) {
     if (response.data.result === 'error') {
       return {
         error: {

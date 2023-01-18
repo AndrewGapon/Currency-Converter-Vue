@@ -3,9 +3,9 @@ import { useCurrenciesStore } from '@/stores/currencies'
 import { storeToRefs } from 'pinia'
 import { useRequestState } from '@/composables/useRequestState'
 import { useApi } from '@/plugins/apiPlugin'
-import type { ApiMethod } from '@/api/endpoints'
+import { ApiMethod } from '@/api/endpoints'
 import { computed, watch } from 'vue'
-import Loader from '@/components/base/Loader.vue'
+import CLoader from '@/components/base/CLoader.vue'
 import ErrorWidget from '@/components/base/ErrorWidget.vue'
 import RatesTable from '@/components/Rates/RatesTable.vue'
 
@@ -17,7 +17,7 @@ const {
   supportedCurrencies,
   favoriteCurrencies
 } = storeToRefs(currenciesStore)
-const { api, endpoints } = useApi()
+const { api } = useApi()
 
 const {
   loading: loadingRates,
@@ -25,7 +25,7 @@ const {
   data: rates,
   request: getRates,
 } = useRequestState(
-  (currency) => api.request<ApiMethod.GET_RATES>(endpoints.currencies.getCurrencyRates, { currency }),
+  (currency) => api.request(ApiMethod.GET_RATES, { currency }),
   (response) => response.data!.conversion_rates,
 )
 
@@ -40,13 +40,13 @@ watch(baseCurrency, (value) => {
 </script>
 
 <template>
-  <loader v-if="loading" />
+  <c-loader v-if="loading" />
   <error-widget
     v-else-if="error"
     :error="error.type || error.message || error.data"
     @retry="() => getRates(baseCurrency)"
   />
-  <div v-else-if="rates && supportedCurrencies">
+  <div class="rates" v-else-if="rates && supportedCurrencies">
     <h2 class="text-3xl font-medium mb-5">{{ baseCurrency }} Rate:</h2>
     <p class="mb-8">{{ baseCurrency }} exchange rate according to the other world currencies</p>
     <rates-table

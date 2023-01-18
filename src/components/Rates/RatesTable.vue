@@ -6,14 +6,13 @@ import type { CurrencyCodesDict } from '@/api/types'
 
 defineProps<{
   rates: Record<string, number>
-  supportedCurrencies: CurrencyCodesDict,
+  supportedCurrencies: CurrencyCodesDict
   favoriteCurrencies: Record<string, boolean>
 }>()
 
 const currenciesStore = useCurrenciesStore()
 const { baseCurrency } = storeToRefs(currenciesStore)
 const { toggleFavorite } = currenciesStore
-
 </script>
 
 <template>
@@ -21,7 +20,10 @@ const { toggleFavorite } = currenciesStore
     <div class="curr-rates-table__head">
       <div>Currency</div>
       <div>FullName</div>
-      <div class="curr-rates-table__col-rate">Rate to {{ baseCurrency }}</div>
+      <div class="curr-rates-table__col-rate">
+        Rate to {{ baseCurrency }} <br>
+        1 {{ baseCurrency}} =
+      </div>
       <div></div>
     </div>
     <div class="curr-rates-table__body">

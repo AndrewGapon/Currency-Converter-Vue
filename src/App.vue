@@ -23,7 +23,7 @@ onBeforeMount(() => {
     <div class="c-layout">
       <CSidebar />
       <main class="c-main">
-        <Transition>
+        <Transition name="fade-cross">
           <component :is="Component" />
         </Transition>
       </main>
@@ -39,7 +39,7 @@ onBeforeMount(() => {
 }
 
 .c-main {
-  @apply flex flex-grow p-6 overflow-y-auto relative;
+  @apply flex-grow p-6 overflow-y-auto relative;
   @include custom-scroll(
     10px,
     theme('colors.slate.600'),
@@ -49,6 +49,8 @@ onBeforeMount(() => {
   );
 
   & > .c-loader {
+    position: absolute;
+    inset: 0;
     align-self: center;
     margin: auto;
   }
