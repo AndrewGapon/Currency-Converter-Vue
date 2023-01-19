@@ -18,3 +18,5 @@ export const toCurrency = (num: number, decimals?: number): string => {
 
   return formatter.format(num)
 }
+
+

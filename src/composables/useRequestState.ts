@@ -1,8 +1,8 @@
 import { computed, ref } from 'vue'
 
-export const useRequestState = <C extends Promise<any>, A extends any[], R extends Awaited<Required<C>>>(
+export const useRequestState = <C extends Promise<any>, A extends any[], R>(
   callback: (...args: A) => C,
-  mapCallback?: (response: Awaited<C>) => R,
+  mapCallback?: (response: Required<Awaited<C>>) => R,
 ) => {
   const loading = ref(false)
   const error = ref<any>(null)

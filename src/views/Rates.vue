@@ -15,7 +15,7 @@ const {
   error: codesError,
   baseCurrency,
   supportedCurrencies,
-  favoriteCurrencies
+  favoriteCurrencies,
 } = storeToRefs(currenciesStore)
 const { api } = useApi()
 
