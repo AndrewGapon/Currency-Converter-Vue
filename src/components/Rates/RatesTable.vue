@@ -21,8 +21,8 @@ const { toggleFavorite } = currenciesStore
       <div>Currency</div>
       <div>FullName</div>
       <div class="curr-rates-table__col-rate">
-        Rate to {{ baseCurrency }} <br>
-        1 {{ baseCurrency}} =
+        Rate to {{ baseCurrency }} <br />
+        1 {{ baseCurrency }} =
       </div>
       <div></div>
     </div>

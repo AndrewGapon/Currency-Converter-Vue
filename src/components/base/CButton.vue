@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { computed, PropType, useAttrs } from 'vue'
+import { computed, useAttrs } from 'vue'
 import CLoader from '@/components/base/CLoader.vue'
 import type { ButtonAppearance, ButtonSize } from '@/components/base/types'
 
-const props = withDefaults(
+withDefaults(
   defineProps<{
     appearance?: ButtonAppearance
     size?: ButtonSize

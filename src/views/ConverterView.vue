@@ -20,18 +20,10 @@ const outputAmount = ref<number>()
 
 const { api } = useApi()
 
-const {
-  loading,
-  error,
-  data,
-  request,
-} = useRequestState(
+const { loading, data, request } = useRequestState(
   (base, target) => api.request(ApiMethod.GET_CONVERSION, { base, target }),
   (response) => {
-    const {
-      conversion_result,
-      conversion_rate
-    } = response.data
+    const { conversion_result, conversion_rate } = response.data
     return conversion_result ?? conversion_rate * Number(inputAmount.value)
   },
 )
@@ -40,8 +32,8 @@ function switchCurrencies() {
   const from = inputCurrency.value
   inputCurrency.value = outputCurrency.value
   outputCurrency.value = from
-  inputAmount.value = 0
-  outputAmount.value = 0
+  inputAmount.value = undefined
+  outputAmount.value = undefined
 }
 
 async function getConversion() {
@@ -59,7 +51,13 @@ async function getConversion() {
         <h4 class="text-xl">Select currencies to convert</h4>
       </div>
       <div class="convert-form__body mb-3">
-        <c-input class="converter-form__input" type="number" inputmode="numeric" v-model="inputAmount">
+        <c-input
+          class="converter-form__input"
+          type="number"
+          inputmode="numeric"
+          v-model="inputAmount"
+          placeholder="0.0"
+        >
           <template #append>
             <select v-if="supportedCurrencies" class="form-select currency-form__select" v-model="inputCurrency">
               <option v-for="{ code } in supportedCurrencies" :key="code" :value="code">
@@ -71,7 +69,14 @@ async function getConversion() {
         <c-button appearance="outline" rounded only-icon @click="switchCurrencies">
           <ArrowsUpDownIcon />
         </c-button>
-        <c-input class="converter-form__input" type="number" inputmode="numeric" readonly v-model="outputAmount">
+        <c-input
+          class="converter-form__input"
+          type="number"
+          inputmode="numeric"
+          readonly
+          v-model="outputAmount"
+          placeholder="0.0"
+        >
           <template #append>
             <select v-if="supportedCurrencies" class="form-select currency-form__select" v-model="outputCurrency">
               <option v-for="{ code } in supportedCurrencies" :key="code" :value="code">

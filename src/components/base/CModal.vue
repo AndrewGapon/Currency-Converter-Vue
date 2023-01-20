@@ -93,12 +93,12 @@ $outer-padding: 24px;
 
   &__body {
     @include custom-scroll(
-        4px,
-        theme('colors.slate.600'),
-        theme('colors.slate.700'),
-        theme('colors.slate.800'),
-        theme('colors.slate.200'),
-        16px
+      4px,
+      theme('colors.slate.600'),
+      theme('colors.slate.700'),
+      theme('colors.slate.800'),
+      theme('colors.slate.200'),
+      16px
     );
 
     padding: 16px 14px 16px $outer-padding;

@@ -1,6 +1,6 @@
 <script lang="ts">
 export default {
-  inheritAttrs: false
+  inheritAttrs: false,
 }
 </script>
 <script setup lang="ts">
@@ -30,7 +30,7 @@ defineEmits<{
 </template>
 
 <style scoped lang="scss">
-@import "@/assets/styles/_mixins.scss";
+@import '@/assets/styles/_mixins.scss';
 
 .c-input {
   @apply flex gap-1.5 rounded-lg border-[1px] border-gray-300 p-2.5;

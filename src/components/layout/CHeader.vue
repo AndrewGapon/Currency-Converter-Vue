@@ -37,16 +37,12 @@ beforeEach((to, from, next) => {
       </div>
       <div class="c-header__right">
         <select class="form-select base-curr-select" v-if="supportedCurrencies" v-model="baseCurr">
-          <option
-            v-for="{ code, name } in supportedCurrencies"
-            :key="code"
-            :value="code"
-          >
+          <option v-for="{ code, name } in supportedCurrencies" :key="code" :value="code">
             {{ code }} ({{ name }})
           </option>
         </select>
         <button class="w-10" type="button" @click="showFavoritesPopup = true">
-          <BookmarkSquareIcon/>
+          <BookmarkSquareIcon />
         </button>
       </div>
     </div>
@@ -64,18 +60,11 @@ beforeEach((to, from, next) => {
         :key="curr"
         class="flex justify-between p-2 border-b-[1px] border-b-gray-500"
       >
-        <router-link
-          class="flex-grow"
-          :to="{ name: RouteNames.converter, query: { from: baseCurrency, to: curr } }"
-        >
+        <router-link class="flex-grow" :to="{ name: RouteNames.converter, query: { from: baseCurrency, to: curr } }">
           <span>{{ curr }}</span>
         </router-link>
-        <button
-          type="button"
-          class="w-6 hover:text-sky-700 transition"
-          @click="toggleFavorite(curr)"
-        >
-          <XCircleIcon/>
+        <button type="button" class="w-6 hover:text-sky-700 transition" @click="toggleFavorite(curr)">
+          <XCircleIcon />
         </button>
       </li>
     </ul>
