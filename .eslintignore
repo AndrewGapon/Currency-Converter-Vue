@@ -41,4 +41,5 @@ tsconfig.vitest.json
 tsconfig.json
 vite.config.ts
 vitest.config.ts
+vercel.json
 .gitignore

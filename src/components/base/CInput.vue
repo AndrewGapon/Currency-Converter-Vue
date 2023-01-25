@@ -21,12 +21,7 @@ function handleChange(event: Event) {
     <div v-if="$slots.prepend" class="c-input__prepend">
       <slot name="prepend"></slot>
     </div>
-    <input
-      v-bind="$attrs"
-      :class="['c-input-field', $attrs.class]"
-      :value="modelValue"
-      @change="handleChange"
-    />
+    <input v-bind="$attrs" :class="['c-input-field', $attrs.class]" :value="modelValue" @change="handleChange" />
     <div v-if="$slots.append" class="c-input__append">
       <slot name="append"></slot>
     </div>
