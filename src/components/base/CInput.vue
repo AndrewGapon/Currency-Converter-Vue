@@ -7,9 +7,13 @@ export default {
 defineProps<{
   modelValue?: string
 }>()
-defineEmits<{
-  (e: 'update:modelValue', value: number): void
+const emit = defineEmits<{
+  (e: 'update:modelValue', value: string): void
 }>()
+
+function handleChange(event: Event) {
+  emit('update:modelValue', (event.target as HTMLInputElement).value)
+}
 </script>
 
 <template>
@@ -21,7 +25,7 @@ defineEmits<{
       v-bind="$attrs"
       :class="['c-input-field', $attrs.class]"
       :value="modelValue"
-      @change="$emit('update:modelValue', $event.target.value)"
+      @change="handleChange"
     />
     <div v-if="$slots.append" class="c-input__append">
       <slot name="append"></slot>

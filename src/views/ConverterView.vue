@@ -15,8 +15,8 @@ const { supportedCurrencies, loading: loadingCodes, baseCurrency } = storeToRefs
 
 const inputCurrency = ref<string | undefined>(baseCurrency.value)
 const outputCurrency = ref<string | undefined>()
-const inputAmount = ref<number>()
-const outputAmount = ref<number>()
+const inputAmount = ref<string>()
+const outputAmount = ref<string>()
 
 const { api } = useApi()
 
@@ -38,7 +38,7 @@ function switchCurrencies() {
 
 async function getConversion() {
   await request(inputCurrency.value, outputCurrency.value)
-  outputAmount.value = data.value
+  outputAmount.value = String(data.value)
 }
 </script>
 
