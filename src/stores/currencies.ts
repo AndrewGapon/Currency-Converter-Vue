@@ -37,7 +37,7 @@ export const useCurrenciesStore = defineStore('currencies', () => {
       delete storage.value.favoriteCurrencies[currency]
       return
     }
-    storage.value.favoriteCurrencies[currency] = true
+    storage.value.favoriteCurrencies[currency] = supportedCurrencies.value[currency]
   }
 
   return {

@@ -7,7 +7,7 @@ import type { CurrencyCodesDict } from '@/api/types'
 defineProps<{
   rates: Record<string, number>
   supportedCurrencies: CurrencyCodesDict
-  favoriteCurrencies: Record<string, boolean>
+  favoriteCurrencies: CurrencyCodesDict
 }>()
 
 const currenciesStore = useCurrenciesStore()
