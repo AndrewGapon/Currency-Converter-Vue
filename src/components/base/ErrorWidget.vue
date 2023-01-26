@@ -17,8 +17,8 @@ defineEmits<{
       <exclamation-triangle-icon class="w-6 mr-2" />
       There was encountered an error
     </h2>
-    <p class="my-4" v-if="typeof error === 'string'">{{ error }}</p>
-    <button @click="$emit('retry')" type="button">Try Again</button>
+    <p v-if="typeof error === 'string'" class="my-4">{{ error }}</p>
+    <button type="button" @click="$emit('retry')">Try Again</button>
   </div>
 </template>
 

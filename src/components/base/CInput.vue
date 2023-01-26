@@ -5,23 +5,24 @@ export default {
 </script>
 <script setup lang="ts">
 defineProps<{
+  wrapperClass?: string
   modelValue?: string
 }>()
 const emit = defineEmits<{
   (e: 'update:modelValue', value: string): void
 }>()
 
-function handleChange(event: Event) {
+function handleInput(event: Event) {
   emit('update:modelValue', (event.target as HTMLInputElement).value)
 }
 </script>
 
 <template>
-  <div class="c-input">
+  <div :class="['c-input', wrapperClass]">
     <div v-if="$slots.prepend" class="c-input__prepend">
       <slot name="prepend"></slot>
     </div>
-    <input v-bind="$attrs" :class="['c-input-field', $attrs.class]" :value="modelValue" @change="handleChange" />
+    <input v-bind="$attrs" :class="['c-input-field', $attrs.class]" :value="modelValue" @input="handleInput" />
     <div v-if="$slots.append" class="c-input__append">
       <slot name="append"></slot>
     </div>

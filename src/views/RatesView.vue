@@ -46,7 +46,7 @@ watch(baseCurrency, (value) => {
     :error="error.type || error.message || error.data"
     @retry="() => getRates(baseCurrency)"
   />
-  <div class="rates" v-else-if="rates && supportedCurrencies">
+  <div v-else-if="rates && supportedCurrencies" class="rates">
     <h2 class="text-3xl font-medium mb-5">{{ baseCurrency }} Rate:</h2>
     <p class="mb-8">{{ baseCurrency }} exchange rate according to the other world currencies</p>
     <rates-table :rates="rates" :favorite-currencies="favoriteCurrencies" :supported-currencies="supportedCurrencies" />

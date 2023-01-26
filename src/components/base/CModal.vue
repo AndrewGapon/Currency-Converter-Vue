@@ -31,18 +31,18 @@ const triggerClose = () => {
   <Teleport to="#modals-container">
     <Transition name="fade">
       <div v-if="show" class="modal-overlay">
-        <div v-bind="$attrs" class="modal" v-outside-click="triggerClose">
+        <div v-outside-click="triggerClose" v-bind="$attrs" class="modal">
           <button class="modal__close-button" @click="triggerClose">
             <XMarkIcon />
           </button>
           <div v-if="$slots.header" class="modal__header">
-            <slot name="header" :triggerClose="triggerClose"></slot>
+            <slot name="header" :trigger-close="triggerClose"></slot>
           </div>
           <div v-if="$slots.default" class="modal__body">
-            <slot :triggerClose="triggerClose"></slot>
+            <slot :trigger-close="triggerClose"></slot>
           </div>
           <div v-if="$slots.footer" class="modal__footer">
-            <slot name="footer" :triggerClose="triggerClose"></slot>
+            <slot name="footer" :trigger-close="triggerClose"></slot>
           </div>
         </div>
       </div>

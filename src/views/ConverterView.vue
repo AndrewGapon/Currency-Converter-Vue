@@ -9,6 +9,7 @@ import { ArrowsUpDownIcon } from '@heroicons/vue/24/outline'
 import { useRequestState } from '@/composables/useRequestState'
 import { useApi } from '@/plugins/apiPlugin'
 import { ApiMethod } from '@/api/endpoints'
+import CCheckbox from '@/components/base/CCheckbox.vue'
 
 const currenciesStore = useCurrenciesStore()
 const { supportedCurrencies, loading: loadingCodes, baseCurrency } = storeToRefs(currenciesStore)
@@ -48,18 +49,19 @@ async function getConversion() {
     <h2 class="text-3xl font-medium mb-8">Convert</h2>
     <div class="convert-form">
       <div class="convert-form__head mb-6">
-        <h4 class="text-xl">Select currencies to convert</h4>
+        <h4 class="text-xl font-medium">Select currencies to convert</h4>
+        <c-checkbox wrapper-class="mt-6" label="Choose from favorites" />
       </div>
       <div class="convert-form__body mb-3">
         <c-input
+          v-model="inputAmount"
           class="converter-form__input"
           type="number"
           inputmode="numeric"
-          v-model="inputAmount"
           placeholder="0.0"
         >
           <template #append>
-            <select v-if="supportedCurrencies" class="form-select currency-form__select" v-model="inputCurrency">
+            <select v-if="supportedCurrencies" v-model="inputCurrency" class="form-select currency-form__select">
               <option v-for="{ code } in supportedCurrencies" :key="code" :value="code">
                 {{ code }}
               </option>
@@ -70,15 +72,15 @@ async function getConversion() {
           <ArrowsUpDownIcon />
         </c-button>
         <c-input
+          v-model="outputAmount"
           class="converter-form__input"
           type="number"
           inputmode="numeric"
           readonly
-          v-model="outputAmount"
           placeholder="0.0"
         >
           <template #append>
-            <select v-if="supportedCurrencies" class="form-select currency-form__select" v-model="outputCurrency">
+            <select v-if="supportedCurrencies" v-model="outputCurrency" class="form-select currency-form__select">
               <option v-for="{ code } in supportedCurrencies" :key="code" :value="code">
                 {{ code }}
               </option>

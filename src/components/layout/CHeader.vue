@@ -36,7 +36,7 @@ beforeEach((to, from, next) => {
         <h1 class="c-header__title">Currency Converter</h1>
       </div>
       <div class="c-header__right">
-        <select class="form-select base-curr-select" v-if="supportedCurrencies" v-model="baseCurr">
+        <select v-if="supportedCurrencies" v-model="baseCurr" class="form-select base-curr-select">
           <option v-for="{ code, name } in supportedCurrencies" :key="code" :value="code">
             {{ code }} ({{ name }})
           </option>
@@ -54,7 +54,7 @@ beforeEach((to, from, next) => {
     <div v-if="!Object.keys(favoriteCurrencies).length" class="favorites-list favorites-list--empty">
       <p>You haven't add any currencies to favorites</p>
     </div>
-    <ul class="favorites-list flex flex-col gap-2" v-else>
+    <ul v-else class="favorites-list flex flex-col gap-2">
       <li
         v-for="(_, curr) in favoriteCurrencies"
         :key="curr"
