@@ -1,10 +1,11 @@
 import type { App } from 'vue'
 import { inject, ref, watch } from 'vue'
 import type { Ref } from 'vue'
+import type { CurrencyCodeObject } from '@/api/types'
 
 export interface AppLocalStorage {
   baseCurrency?: string
-  favoriteCurrencies?: Record<string, boolean>
+  favoriteCurrencies?: Record<string, CurrencyCodeObject>
 }
 
 export class NoLocalStoragePluginError extends Error {

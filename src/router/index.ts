@@ -1,9 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Rates from '../views/Rates.vue'
+import Rates from '../views/RatesView.vue'
 
 export enum RouteNames {
   'rates' = 'rates',
-  'converter' = 'converter'
+  'converter' = 'converter',
 }
 
 const router = createRouter({
@@ -17,7 +17,7 @@ const router = createRouter({
     {
       path: '/convert',
       name: RouteNames.converter,
-      component: () => import('../views/Converter.vue'),
+      component: () => import('../views/ConverterView.vue'),
     },
   ],
 })

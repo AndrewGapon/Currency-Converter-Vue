@@ -36,17 +36,13 @@ beforeEach((to, from, next) => {
         <h1 class="c-header__title">Currency Converter</h1>
       </div>
       <div class="c-header__right">
-        <select class="form-select base-curr-select" v-if="supportedCurrencies" v-model="baseCurr">
-          <option
-            v-for="{ code, name } in supportedCurrencies"
-            :key="code"
-            :value="code"
-          >
+        <select v-if="supportedCurrencies" v-model="baseCurr" class="form-select base-curr-select">
+          <option v-for="{ code, name } in supportedCurrencies" :key="code" :value="code">
             {{ code }} ({{ name }})
           </option>
         </select>
         <button class="w-10" type="button" @click="showFavoritesPopup = true">
-          <BookmarkSquareIcon/>
+          <BookmarkSquareIcon />
         </button>
       </div>
     </div>
@@ -58,24 +54,17 @@ beforeEach((to, from, next) => {
     <div v-if="!Object.keys(favoriteCurrencies).length" class="favorites-list favorites-list--empty">
       <p>You haven't add any currencies to favorites</p>
     </div>
-    <ul class="favorites-list flex flex-col gap-2" v-else>
+    <ul v-else class="favorites-list flex flex-col gap-2">
       <li
         v-for="(_, curr) in favoriteCurrencies"
         :key="curr"
         class="flex justify-between p-2 border-b-[1px] border-b-gray-500"
       >
-        <router-link
-          class="flex-grow"
-          :to="{ name: RouteNames.converter, query: { from: baseCurrency, to: curr } }"
-        >
+        <router-link class="flex-grow" :to="{ name: RouteNames.converter, query: { from: baseCurrency, to: curr } }">
           <span>{{ curr }}</span>
         </router-link>
-        <button
-          type="button"
-          class="w-6 hover:text-sky-700 transition"
-          @click="toggleFavorite(curr)"
-        >
-          <XCircleIcon/>
+        <button type="button" class="w-6 hover:text-sky-700 transition" @click="toggleFavorite(curr)">
+          <XCircleIcon />
         </button>
       </li>
     </ul>

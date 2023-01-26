@@ -20,10 +20,7 @@ export const useCurrenciesStore = defineStore('currencies', () => {
     error,
     data: supportedCurrencies,
     request: getSupportedCurrencies,
-  } = useRequestState(
-    () => api.request(ApiMethod.GET_CODES),
-    mapSupportedCurrenciesResponse,
-  )
+  } = useRequestState(() => api.request(ApiMethod.GET_CODES), mapSupportedCurrenciesResponse)
 
   function setBaseCurrency(currency: string) {
     if (!supportedCurrencies.value || !supportedCurrencies.value[currency]) return
@@ -40,7 +37,7 @@ export const useCurrenciesStore = defineStore('currencies', () => {
       delete storage.value.favoriteCurrencies[currency]
       return
     }
-    storage.value.favoriteCurrencies[currency] = true
+    storage.value.favoriteCurrencies[currency] = supportedCurrencies.value[currency]
   }
 
   return {

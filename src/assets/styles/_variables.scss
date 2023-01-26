@@ -1,0 +1,21 @@
+:root {
+  /* Buttons */
+  --c-btn-base-color: theme('colors.indigo.600');
+  --c-btn-hover-color: theme('colors.indigo.500');
+  --c-btn-actvie-color: theme('colors.indigo.900');
+  --c-btn-disabled-color: theme('colors.stone.200');
+
+  --c-btn-filled-color: theme('colors.neutral.50');
+  --c-btn-filled-color-disabled: theme('colors.neutral.400');
+  --c-btn-filled-bg-color: var(--c-btn-base-color);
+  --c-btn-filled-bg-color-hover: var(--c-btn-hover-color);
+  --c-btn-filled-bg-color-active: var(--c-btn-actvie-color);
+  --c-btn-filled-bg-color-disabled: var(--c-btn-disabled-color);
+
+  --c-btn-outline-bg-color: #ffffff;
+  --c-btn-outline-bg-color-hover: theme('colors.zinc.200');
+  --c-btn-outline-color: var(--c-btn-base-color);
+  --c-btn-outline-color-hover: var(--c-btn-hover-color);
+  --c-btn-outline-color-active: var(--c-btn-active-color);
+  --c-btn-outline-color-disabled: var(--c-btn-disabled-color);
+}

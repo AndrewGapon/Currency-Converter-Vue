@@ -1,6 +1,5 @@
 import type { CurrencyCodeDescription, GetConversionResponseData, GetRatesResponseData } from '@/api/types'
 import type { Method } from 'axios'
-import { Api } from '@/api/index'
 
 export enum ApiMethod {
   GET_CODES = 'GET_CODES',

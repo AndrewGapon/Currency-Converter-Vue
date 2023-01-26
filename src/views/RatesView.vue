@@ -15,7 +15,7 @@ const {
   error: codesError,
   baseCurrency,
   supportedCurrencies,
-  favoriteCurrencies
+  favoriteCurrencies,
 } = storeToRefs(currenciesStore)
 const { api } = useApi()
 
@@ -26,7 +26,7 @@ const {
   request: getRates,
 } = useRequestState(
   (currency) => api.request(ApiMethod.GET_RATES, { currency }),
-  (response) => response.data!.conversion_rates,
+  (response) => response.data.conversion_rates,
 )
 
 const loading = computed(() => loadingRates.value || loadingCodes.value)
@@ -46,17 +46,11 @@ watch(baseCurrency, (value) => {
     :error="error.type || error.message || error.data"
     @retry="() => getRates(baseCurrency)"
   />
-  <div class="rates" v-else-if="rates && supportedCurrencies">
+  <div v-else-if="rates && supportedCurrencies" class="rates">
     <h2 class="text-3xl font-medium mb-5">{{ baseCurrency }} Rate:</h2>
     <p class="mb-8">{{ baseCurrency }} exchange rate according to the other world currencies</p>
-    <rates-table
-      :rates="rates"
-      :favorite-currencies="favoriteCurrencies"
-      :supported-currencies="supportedCurrencies"
-    />
+    <rates-table :rates="rates" :favorite-currencies="favoriteCurrencies" :supported-currencies="supportedCurrencies" />
   </div>
 </template>
 
-<style lang="scss">
-
-</style>
+<style lang="scss"></style>
