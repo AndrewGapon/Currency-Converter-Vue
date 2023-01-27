@@ -12,7 +12,7 @@ export default defineConfig({
   test: {
     ...configDefaults,
     globals: true,
-    setupFiles: ['vitest-localstorage-mock'],
+    setupFiles: ['vitest-localstorage-mock', './src/tests/setup'],
     mockReset: false,
   },
 })

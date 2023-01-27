@@ -41,7 +41,7 @@ const buttonType = computed(() => attrs.type ?? 'button')
     ]"
     :type="!$attrs.href ? buttonType : undefined"
   >
-    <c-loader v-if="loading" :weight="3" :size="40" />
+    <c-loader v-if="loading" data-test="button-loader" :weight="3" :size="40" />
     <slot name="prependIcon"></slot>
     <slot></slot>
     <slot name="appendIcon"></slot>
