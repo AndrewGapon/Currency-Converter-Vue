@@ -19,11 +19,11 @@ function handleInput(event: Event) {
 
 <template>
   <div :class="['c-input', wrapperClass]">
-    <div v-if="$slots.prepend" class="c-input__prepend">
+    <div v-if="$slots.prepend" data-test="input-prepend" class="c-input__prepend">
       <slot name="prepend"></slot>
     </div>
     <input v-bind="$attrs" :class="['c-input-field', $attrs.class]" :value="modelValue" @input="handleInput" />
-    <div v-if="$slots.append" class="c-input__append">
+    <div v-if="$slots.append" data-test="input-append" class="c-input__append">
       <slot name="append"></slot>
     </div>
   </div>
