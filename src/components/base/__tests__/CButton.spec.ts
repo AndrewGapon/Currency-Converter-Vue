@@ -14,20 +14,26 @@ describe('CButton component', () => {
     },
   })
 
-  test('render text', () => {
+  test('should render text', () => {
     expect(wrapper.text()).toEqual(text)
   })
 
-  test('render icons', () => {
+  test('should render icons', () => {
     expect(wrapper.getComponent(ArrowLeftIcon).isVisible()).toBe(true)
     expect(wrapper.getComponent(ArrowRightIcon).isVisible()).toBe(true)
   })
 
-  test('loading state', async () => {
+  describe('loading state', () => {
     const loaderSelector = 'button-loader'
-    await wrapper.setProps({ loading: true })
-    expect(wrapper.getByTestId(loaderSelector).isVisible()).toBe(true)
-    await wrapper.setProps({ loading: false })
-    expect(wrapper.findByTestId(loaderSelector).exists()).toBe(false)
+
+    test('should show loader if the "loading" props is "true"', async () => {
+      await wrapper.setProps({ loading: true })
+      expect(wrapper.getByTestId(loaderSelector).isVisible()).toBe(true)
+    })
+
+    test('should remove loader if the "loading" props is "false"', async () => {
+      await wrapper.setProps({ loading: false })
+      expect(wrapper.findByTestId(loaderSelector).exists()).toBe(false)
+    })
   })
 })

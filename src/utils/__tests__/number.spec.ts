@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest'
+import { describe, expect, test } from 'vitest'
 import { getDecimalPlaces, toCurrency } from '@/utils/number'
 
 const getDecimalPlacesCases: {
@@ -27,11 +27,14 @@ const getDecimalPlacesCases: {
   },
 ]
 
-describe.each(getDecimalPlacesCases)('getDecimalPlaces', (data) => {
-  it('should return minimum amount of decimals to show at least 2 non-nullable digits', () => {
-    const decimals = getDecimalPlaces(...data.args)
-    expect(decimals).toEqual(data.expect)
-  })
+describe('getDecimalPlaces', () => {
+  test.each(getDecimalPlacesCases)(
+    'should return minimum amount of decimals to show at least 2 non-nullable digits',
+    (data) => {
+      const decimals = getDecimalPlaces(...data.args)
+      expect(decimals).toEqual(data.expect)
+    },
+  )
 })
 
 const toCurrencyCases: {
@@ -68,8 +71,8 @@ const toCurrencyCases: {
   },
 ]
 
-describe.each(toCurrencyCases)('toCurrency', (data) => {
-  it('should display number as a currency', () => {
+describe('toCurrency', () => {
+  test.each(toCurrencyCases)('should display number as a currency', (data) => {
     const currency = toCurrency(...data.args)
     expect(currency).toEqual(data.expect)
   })
