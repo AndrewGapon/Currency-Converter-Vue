@@ -28,7 +28,7 @@ function handleChange(event: Event) {
       :value="modelValue"
       @change="handleChange"
     />
-    <span v-if="label" class="c-checkbox__label">{{ label }}</span>
+    <span v-if="label" data-test="checkbox-label-text" class="c-checkbox__label">{{ label }}</span>
   </label>
 </template>
 

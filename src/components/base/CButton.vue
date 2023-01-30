@@ -2,14 +2,18 @@
 import { computed, useAttrs } from 'vue'
 import CLoader from '@/components/base/CLoader.vue'
 import type { ButtonAppearance, ButtonSize } from '@/components/base/types'
+import type { RouteLocationRaw } from 'vue-router'
+import { ComponentPropsError } from '@/errors/component-errors'
+import { RouterLink } from 'vue-router'
 
-withDefaults(
+const props = withDefaults(
   defineProps<{
     appearance?: ButtonAppearance
     size?: ButtonSize
     rounded?: boolean
     onlyIcon?: boolean
     loading?: boolean
+    to?: RouteLocationRaw
   }>(),
   {
     appearance: 'filled',
@@ -22,12 +26,17 @@ withDefaults(
 
 const attrs = useAttrs()
 
+if (props.to && attrs.href) {
+  throw new ComponentPropsError('CButton component cannot have "to" and "href" props at the same time')
+}
+
 const buttonType = computed(() => attrs.type ?? 'button')
 </script>
 
 <template>
   <component
-    :is="$attrs.href ? 'a' : 'button'"
+    :is="to ? RouterLink : $attrs.href ? 'a' : 'button'"
+    :to="to"
     :class="[
       'c-button',
       $attrs.class,
@@ -39,7 +48,7 @@ const buttonType = computed(() => attrs.type ?? 'button')
         'only-icon': onlyIcon,
       },
     ]"
-    :type="!$attrs.href ? buttonType : undefined"
+    :type="!$attrs.href && !to ? buttonType : undefined"
   >
     <c-loader v-if="loading" data-test="button-loader" :weight="3" :size="40" />
     <slot name="prependIcon"></slot>
