@@ -30,8 +30,8 @@ const triggerClose = () => {
 
 <template>
   <Teleport to="#modals-container">
-    <Transition name="fade">
-      <ModalWrapper>
+    <ModalWrapper>
+      <Transition name="fade">
         <div v-if="show" class="modal-overlay">
           <div v-outside-click="triggerClose" data-test="modal" v-bind="$attrs" class="modal">
             <button data-test="modal-close-btn" class="modal__close-button" @click="triggerClose">
@@ -48,8 +48,8 @@ const triggerClose = () => {
             </div>
           </div>
         </div>
-      </ModalWrapper>
-    </Transition>
+      </Transition>
+    </ModalWrapper>
   </Teleport>
 </template>
 
