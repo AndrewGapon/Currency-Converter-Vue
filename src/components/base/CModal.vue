@@ -6,6 +6,7 @@ export default {
 <script setup>
 import { watch } from 'vue'
 import { XMarkIcon } from '@heroicons/vue/24/outline'
+import ModalWrapper from '@/components/base/ModalWrapper.vue'
 
 const props = defineProps({
   show: {
@@ -30,22 +31,24 @@ const triggerClose = () => {
 <template>
   <Teleport to="#modals-container">
     <Transition name="fade">
-      <div v-if="show" class="modal-overlay">
-        <div v-outside-click="triggerClose" v-bind="$attrs" class="modal">
-          <button class="modal__close-button" @click="triggerClose">
-            <XMarkIcon />
-          </button>
-          <div v-if="$slots.header" class="modal__header">
-            <slot name="header" :trigger-close="triggerClose"></slot>
-          </div>
-          <div v-if="$slots.default" class="modal__body">
-            <slot :trigger-close="triggerClose"></slot>
-          </div>
-          <div v-if="$slots.footer" class="modal__footer">
-            <slot name="footer" :trigger-close="triggerClose"></slot>
+      <ModalWrapper>
+        <div v-if="show" class="modal-overlay">
+          <div v-outside-click="triggerClose" data-test="modal" v-bind="$attrs" class="modal">
+            <button data-test="modal-close-btn" class="modal__close-button" @click="triggerClose">
+              <XMarkIcon />
+            </button>
+            <div v-if="$slots.header" data-test="modal-header" class="modal__header">
+              <slot name="header" :trigger-close="triggerClose"></slot>
+            </div>
+            <div v-if="$slots.default" data-test="modal-body" class="modal__body">
+              <slot :trigger-close="triggerClose"></slot>
+            </div>
+            <div v-if="$slots.footer" data-test="modal-footer" class="modal__footer">
+              <slot name="footer" :trigger-close="triggerClose"></slot>
+            </div>
           </div>
         </div>
-      </div>
+      </ModalWrapper>
     </Transition>
   </Teleport>
 </template>

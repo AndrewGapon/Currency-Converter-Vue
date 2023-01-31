@@ -1,7 +1,7 @@
 import type { DOMWrapper, VueWrapper } from '@vue/test-utils'
 
 const createSelector = (value: string): string => `[data-test="${value}"]`
-export const DataTestIdPlugin = (wrapper: VueWrapper) => {
+export const DataTestIdPlugin = (wrapper: VueWrapper | DOMWrapper<any>) => {
   function findByTestId(selector: string): DOMWrapper<Element> {
     return wrapper.find(createSelector(selector))
   }
